@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function FormList({addPost,clearList}) {
     const [value,setValue] = useState("");
+    const [isValid, setValid] = useState(true)
 
     const newPost =  (e) => {
       e.preventDefault()
@@ -13,9 +14,11 @@ function FormList({addPost,clearList}) {
         }
   
         addPost(obj)
-
+        setValid(true)
         setValue("")
-      }
+      }else{
+        setValid(false)
+      }  
     }
 
     return (
@@ -29,8 +32,9 @@ function FormList({addPost,clearList}) {
                   placeholder="Malumot kiriting"
                   value={value}
                   onChange={e => setValue(e.target.value)}
-                  required
+                  style = {{borderColor: isValid ? "green" : "red" }}
                   />
+                  <span className={`text-danger ${isValid ? "d-none" : "d-block"}` }>Inputga malumot kiriting</span>
                 </div>
 
                 <div className="col-12 col-md-3">        
@@ -47,7 +51,7 @@ function FormList({addPost,clearList}) {
                   <button 
                   type='reset'
                   className="btn btn-danger w-100" 
-                  onClick = {clearList}
+                  onClick = {() => clearList(setValid(true))}
                   >
                     Reset
                   </button>
