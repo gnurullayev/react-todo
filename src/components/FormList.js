@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 
 function FormList({addPost,clearList}) {
-    const [value,setValue] = useState("Alisher");
+    const [value,setValue] = useState("");
 
     const newPost =  (e) => {
       e.preventDefault()
-      
-      let obj = {
-        id: Date.now(),
-        label: value,
-      }
 
-      addPost(obj)
-      
-      setValue("")
+      if(value) {
+        let obj = {
+          id: Date.now(),
+          label: value,
+        }
+  
+        addPost(obj)
+
+        setValue("")
+      }
     }
 
     return (
